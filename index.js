@@ -9,7 +9,7 @@ const serveDir = path.join(__dirname, "serve");
 const cors = require("cors");
 app.use(cors());
 
-app.options("*", cors()); // include before other routes
+app.options(3000, cors()); // include before other routes
 
 // warn if serve folder doesn't exist
 if (!fs.existsSync(serveDir)) {
