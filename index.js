@@ -3,9 +3,13 @@ const path = require("path");
 const fs = require("fs");
 
 // app.js - simple Express app that serves files from the "serve" folder
-
 const app = express();
 const serveDir = path.join(__dirname, "serve");
+
+const cors = require("cors");
+app.use(cors());
+
+app.options("*", cors()); // include before other routes
 
 // warn if serve folder doesn't exist
 if (!fs.existsSync(serveDir)) {
