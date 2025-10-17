@@ -11,8 +11,8 @@ services:
       - caddy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./_data/caddy:/data
-      - ./_data/logs:/logs
+      - ./_data:/data
+      - ./_data:/logs
       - ./certs:/certs:ro
     restart: unless-stopped
     # labels:
