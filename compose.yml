@@ -22,6 +22,9 @@ services:
   whoami:
     container_name: del-video
     image: del-vid
+    build: .
+    restart: unless-stopped
+
     networks:
       - caddy
     labels:
