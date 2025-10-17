@@ -1,0 +1,35 @@
+services:
+  caddy:
+    container_name: caddy
+    image: lucaslorentz/caddy-docker-proxy:ci-alpine
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - CADDY_INGRESS_NETWORKS=caddy
+    networks:
+      - caddy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./_data/caddy:/data
+      - ./_data/logs:/logs
+      - ./certs:/certs:ro
+    restart: unless-stopped
+    # labels:
+    #   caddy: vpn.rameen.pro
+    #   caddy.respond: '"Once you pass the Spelling Bee!" 200'
+
+  whoami:
+    container_name: del-video
+    image: del-vid
+    networks:
+      - caddy
+    labels:
+      caddy: imc.privy-data.com
+      caddy.reverse_proxy: "{{upstreams 3000}}"
+      # caddy.tls: "/certs/rameen.pro.pem /certs/rameen.pro.key"
+      caddy.log.output: "file /imc.log"
+
+networks:
+  caddy:
+    external: true
